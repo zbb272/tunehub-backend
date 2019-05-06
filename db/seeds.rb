@@ -28,9 +28,9 @@ c1 = Contribution.create(user: user1, project: project1, approved: true);
 c2 = Contribution.create(user: user2, project: project1, approved: true);
 c3 = Contribution.create(user: user2, project: project1, approved: false);
 
-a = Note.create(x: 0, y: 0);
-b = Note.create(x: 1, y: 1);
-c = Note.create(x: 2, y: 2);
+a = Note.create(x: 0, y: 0, bc: "black", frequency: 185.0, selected: true);
+b = Note.create(x: 1, y: 1, bc: "black", frequency: 185.0, selected: true);
+c = Note.create(x: 2, y: 2, bc: "black", frequency: 185.0, selected: true);
 c1.notes << a;
 c1.notes << b;
 c1.notes << c;
