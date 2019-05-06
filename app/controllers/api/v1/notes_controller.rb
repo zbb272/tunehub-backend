@@ -17,7 +17,7 @@ class Api::V1::NotesController < ApplicationController
   private
 
   def note_params
-    params.permit(:x, :y, :contribution_id)
+    params.permit(:x, :y, :contribution_id, :frequency, :selected, :bc)
   end
 
   def find_note

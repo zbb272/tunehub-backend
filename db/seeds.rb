@@ -13,9 +13,9 @@ User.delete_all
 
 
 
-user1 = User.create(username: "user1");
-user2 = User.create(username: "user2");
-user3 = User.create(username: "user3");
+user1 = User.create(username: "user1", password_digest: "user1");
+user2 = User.create(username: "user2", password_digest: "user2");
+user3 = User.create(username: "user3", password_digest: "user3");
 
 project1 = Project.create(name: "proj1", user: user1);
 project2 = Project.create(name: "proj2", user: user2);
@@ -34,6 +34,12 @@ c = Note.create(x: 2, y: 2, bc: "black", frequency: 185.0, selected: true);
 c1.notes << a;
 c1.notes << b;
 c1.notes << c;
+c2.notes << a;
+c2.notes << b;
+c2.notes << c;
+
 project1.contributions << c1;
 project1.contributions << c2;
 project1.contributions << c3;
+project1.latest_contribution = c2.id
+project1.save

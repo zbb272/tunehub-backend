@@ -1,5 +1,5 @@
 class Api::V1::ContributionsController < ApplicationController
-  before_action :find_contribution, only: [:update]
+  before_action :find_contribution, only: [:update, :show]
   def index
     @contributions = Contribution.all
     render json: @contributions
@@ -12,6 +12,10 @@ class Api::V1::ContributionsController < ApplicationController
     else
       render json: { errors: @contribution.errors.full_messages }, status: :unprocessible_entity
     end
+  end
+
+  def show
+    render json: @contribution
   end
 
   private

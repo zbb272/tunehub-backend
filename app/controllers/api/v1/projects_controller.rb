@@ -1,5 +1,5 @@
 class Api::V1::ProjectsController < ApplicationController
-  before_action :find_project, only: [:update]
+  before_action :find_project, only: [:update, :show]
   def index
     @projects = Project.all
     render json: @projects
@@ -14,10 +14,22 @@ class Api::V1::ProjectsController < ApplicationController
     end
   end
 
+  def show
+    render json: @project
+  end
+
+  def create
+    p = Project.create(project_params)
+    p.contributions << Contribution.create(user_id: p.user_id, approved: true, message: "created")
+    p.latest_contribution = p.contributions[0].id
+    p.save
+    render json: p
+  end
+
   private
 
   def project_params
-    params.permit(:user_id, :name)
+    params.permit(:user_id, :name, :latest_contribution, contributions_attributes: [:id, :user_id, :project_id, :message, :approved])
   end
 
   def find_project

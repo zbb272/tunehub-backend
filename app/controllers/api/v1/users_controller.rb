@@ -14,6 +14,10 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def create
+    render json: User.create(user_params)
+  end
+
   def show
     render json: @user
   end
@@ -21,7 +25,7 @@ class Api::V1::UsersController < ApplicationController
   private
 
   def user_params
-    params.permit(:username)
+    params.permit(:username, :password_digest)
   end
 
   def find_user
