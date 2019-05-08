@@ -1,5 +1,5 @@
 class Api::V1::ProjectsController < ApplicationController
-  before_action :find_project, only: [:update, :show]
+  before_action :find_project, only: [:update, :show, :destroy]
   def index
     @projects = Project.all
     render json: @projects
@@ -20,16 +20,26 @@ class Api::V1::ProjectsController < ApplicationController
 
   def create
     p = Project.create(project_params)
-    p.contributions << Contribution.create(user_id: p.user_id, approved: true, message: "created")
+    p.contributions << Contribution.create(user_id: p.user_id, approved: true, pending: false, message: "created")
     p.latest_contribution = p.contributions[0].id
     p.save
     render json: p
   end
 
+  def destroy
+    @project.contributions.each do | con |
+      con.notes.each do | note |
+        note.destroy();
+      end
+      con.destroy();
+    end
+    render json: @project.destroy()
+  end
+
   private
 
   def project_params
-    params.permit(:user_id, :name, :latest_contribution, contributions_attributes: [:id, :user_id, :project_id, :message, :approved])
+    params.permit(:user_id, :name, :latest_contribution, contributions_attributes: [:id, :user_id, :project_id, :message, :pending, :approved])
   end
 
   def find_project

@@ -24,13 +24,13 @@ project4 = Project.create(name: "proj4", user: user1);
 project5 = Project.create(name: "proj5", user: user2);
 project6 = Project.create(name: "proj6", user: user3);
 
-c1 = Contribution.create(user: user1, project: project1, approved: true);
-c2 = Contribution.create(user: user2, project: project1, approved: true);
-c3 = Contribution.create(user: user2, project: project1, approved: false);
+c1 = Contribution.create(user: user1, project: project1, approved: true, pending: false);
+c2 = Contribution.create(user: user2, project: project1, approved: true, pending: false);
+c3 = Contribution.create(user: user2, project: project1, approved: false,pending: true);
 
-a = Note.create(x: 0, y: 0, bc: "black", frequency: 185.0, selected: true);
-b = Note.create(x: 1, y: 1, bc: "black", frequency: 185.0, selected: true);
-c = Note.create(x: 2, y: 2, bc: "black", frequency: 185.0, selected: true);
+a = Note.create(x: 0, y: 0, bc: "red", frequency: 185.0, selected: true);
+b = Note.create(x: 1, y: 1, bc: "red", frequency: 185.0, selected: true);
+c = Note.create(x: 2, y: 2, bc: "red", frequency: 185.0, selected: true);
 c1.notes << a;
 c1.notes << b;
 c1.notes << c;

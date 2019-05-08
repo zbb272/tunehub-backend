@@ -14,6 +14,11 @@ class Api::V1::ContributionsController < ApplicationController
     end
   end
 
+  def create
+    c = Contribution.create(contribution_params)
+    render json: c
+  end
+
   def show
     render json: @contribution
   end
@@ -21,7 +26,7 @@ class Api::V1::ContributionsController < ApplicationController
   private
 
   def contribution_params
-    params.permit(:user_id, :project_id)
+    params.permit(:user_id, :project_id, :message, :approved, :pending, notes_attributes: [:id, :x, :y, :contribution_id, :bc, :selected, :frequency])
   end
 
   def find_contribution

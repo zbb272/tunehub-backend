@@ -14,6 +14,10 @@ class Api::V1::NotesController < ApplicationController
     end
   end
 
+  def create
+    render json: Note.create(note_params)
+  end
+
   private
 
   def note_params
